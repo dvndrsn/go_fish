@@ -64,6 +64,38 @@ class Player(object):
             print("    {c}".format(c=card))
         print()
 
+    # pass as abstract
+    def get_target_player(self, current_player, players):
+        print("\nWho would you like to take cards from?")
+
+        num_players = len(players)
+
+        for p in range(1,num_players+1):
+            if p != current_player:
+                print("    x. Player {num}: {c} cards".format(num=p, c=len(players[p-1].hand)))
+
+        # get input 
+        target_player = 0
+
+        while (target_player <= 0 or target_player > num_players
+                or target_player == current_player):
+            target_player = input('\nEnter player number: ')
+            try:
+                target_player=int(target_player)
+            except ValueError:
+                target_player=0
+        return target_player
+
+    # pass as abstract
+    def get_guess_value(self, values, players):
+        print ("\nCards in the deck: ", values)
+
+        guess_value = ''
+
+        while (values.count(guess_value)==0):
+             guess_value = input('\nWhat card would you like to guess? ')
+        return guess_value
+
 def main():
     player=Player()
     player2=Player()
@@ -105,6 +137,14 @@ def main():
     player.show_hand()
     print("Player2's hand:")
     player2.show_hand()
+
+    players = [player,player2]
+
+    target=player.get_target_player(1, players)
+    print("Chose target player: {p}".format(p=target))
+
+    target=player.get_guess_value(Card.values, players)
+    print("Chose guess value: {v}".format(v=target))
 
     # sets = player.play_sets()
     # print("Player1's hand:")

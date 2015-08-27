@@ -9,10 +9,10 @@ class Card(object):
         self.value = value
 
     def __str__(self):
-        return self.value + '_' + self.suit
+        return self.value + ' of ' + self.suit
 
     def __repr__(self):
-        return self.value + '_' + self.suit
+        return self.value + ' of ' + self.suit
 
     @staticmethod
     def get_all_cards():
